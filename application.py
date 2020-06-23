@@ -27,3 +27,20 @@ db = scoped_session(sessionmaker(bind=engine))
 @app.route("/")
 def index():
     return render_template("index.html")
+
+# login page (can use get or post methods)
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    # clear previous session
+    session.clear()
+    # grab username from form
+    username = request.form.get('username')
+    # if user submitted form
+    if request.method == "POST":
+        # if no username entered
+        if not request.form.get('username'):
+            return render_template("error.html", message="Please input username.")
+
+        # if no password entered
+        if not request.form.get('password'):
+            return render_template("error.html", message="Please input password.")
