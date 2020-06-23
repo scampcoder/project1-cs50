@@ -17,10 +17,13 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Set up database
+# object from sqlalchemy that manages connection to our db
 engine = create_engine(os.getenv("DATABASE_URL"))
+
+# scoped session makes it so that users actions with db are separated
 db = scoped_session(sessionmaker(bind=engine))
 
-
+# main page
 @app.route("/")
 def index():
-    return render_template("login.html")
+    return render_template("index.html")
